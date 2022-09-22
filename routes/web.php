@@ -22,5 +22,7 @@ Route::post('login-action', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group( function () {
     Route::get('dashboard', [AuthController::class, 'dashboard']);
     Route::get('test', [Test::class, 'test']);
+    Route::post('submit-test', [Test::class, 'submitTest']);
+    Route::get('test-result', [Test::class, 'testResult']);
     Route::post('logout', [AuthController::class, 'logout']);
 });

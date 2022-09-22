@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('user_test_results', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('department_id');
+            $table->integer('user_department_id');
             $table->integer('total_questions');
             $table->integer('attempted');
             $table->integer('correct_answer');

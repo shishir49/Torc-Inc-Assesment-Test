@@ -19,7 +19,6 @@
     <body>
         <h3>Welcome To the Dashboard</h3>
         <a href="{{url('test')}}">Participate the Test</a><br>
-        <a href="{{url('department-result')}}">Check Result (Department wise)</a><br>
-        <a href="{{url('all-result')}}">Check Result (All)</a>
+        <a href="{{url('test-result')}}">Test Result</a><br>
     </body>
 </html>

@@ -17,10 +17,11 @@ class AuthController extends Controller
 
     public function registration(Request $request) 
     {
-        $user            = new User();
-        $user->name      = $request->name;
-        $user->email     = $request->email;
-        $user->password  = Hash::make($request->password);
+        $user                  = new User();
+        $user->name            = $request->name;
+        $user->email           = $request->email;
+        $user->department_id   = $request->department_id;
+        $user->password        = Hash::make($request->password);
         $user->save();
 
     }

@@ -17,9 +17,8 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('question_id');
-            $table->integer('option_id');
-            $table->integer('department_id');
-            $table->integer('is_correct');
+            $table->string('option_id')->nullable();
+            $table->integer('is_correct')->nullable();
             $table->timestamps();
         });
     }

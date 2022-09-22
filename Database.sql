@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 22, 2022 at 06:36 PM
+-- Generation Time: Sep 22, 2022 at 10:07 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -134,6 +134,7 @@ CREATE TABLE `test_questions` (
   `question_number` int(11) NOT NULL,
   `question_title` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `correct_option` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -142,9 +143,9 @@ CREATE TABLE `test_questions` (
 -- Dumping data for table `test_questions`
 --
 
-INSERT INTO `test_questions` (`id`, `question_number`, `question_title`, `correct_option`, `created_at`, `updated_at`) VALUES
-(1, 1, 'What 20 addition 5 ? ', 'b', NULL, NULL),
-(2, 2, 'What 20 subtract 5 ? ', 'c', NULL, NULL);
+INSERT INTO `test_questions` (`id`, `question_number`, `question_title`, `correct_option`, `type`, `created_at`, `updated_at`) VALUES
+(1, 1, 'What 20 addition 5 ? ', 'b', 'radio', NULL, NULL),
+(2, 2, 'What 20 subtract 5 ? ', 'c', 'check', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -155,6 +156,7 @@ INSERT INTO `test_questions` (`id`, `question_number`, `question_title`, `correc
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `department_id` int(11) NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -167,8 +169,13 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(2, 'azim', 'userb@gmail.com', NULL, '$2y$10$ZQbcv7EIA9fgD7iPQkH94O91WcDt8b.3Q1AWsIC3TqQtQPxgHcDAS', NULL, '2022-09-22 10:19:50', '2022-09-22 10:19:50');
+INSERT INTO `users` (`id`, `name`, `department_id`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(2, 'azim', 1, 'userb@gmail.com', NULL, '$2y$10$ZQbcv7EIA9fgD7iPQkH94O91WcDt8b.3Q1AWsIC3TqQtQPxgHcDAS', NULL, '2022-09-22 10:19:50', '2022-09-22 10:19:50'),
+(3, 'azim1', 1, 'userc@gmail.com', NULL, '$2y$10$qBdQIhkOSUS7GBVEVkYDB.ajXlk6hIrCGOEwGweB0Uqef1WG1JIvy', NULL, '2022-09-22 13:15:23', '2022-09-22 13:15:23'),
+(4, 'azim2', 1, 'userd@gmail.com', NULL, '$2y$10$7JG/Xe3uX0MMCqiVWN1O9OQvUayCNLdZmz89ClbtXQ7/YHEy1fosq', NULL, '2022-09-22 13:15:41', '2022-09-22 13:15:41'),
+(5, 'azim3', 2, 'usere@gmail.com', NULL, '$2y$10$cFxUDFITvJnGzM3cvEIkK.A.DC7d23rbxxdQWbBHXaM5VSNCuCp56', NULL, '2022-09-22 13:15:55', '2022-09-22 13:15:55'),
+(6, 'azim4', 2, 'userf@gmail.com', NULL, '$2y$10$AYmfuwqIC/6Ei1rof701uu7taKHGePOWbEwJZP7smX9La4CV2Ogga', NULL, '2022-09-22 13:16:08', '2022-09-22 13:16:08'),
+(7, 'azim5', 2, 'userg@gmail.com', NULL, '$2y$10$cpxerqNBxdjGryorSbaiyetRRqltbER7xfgH4cuyprGzRDVqH6CvS', NULL, '2022-09-22 13:16:16', '2022-09-22 13:16:16');
 
 -- --------------------------------------------------------
 
@@ -180,12 +187,23 @@ CREATE TABLE `user_answers` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
   `question_id` int(11) NOT NULL,
-  `option_id` int(11) NOT NULL,
-  `department_id` int(11) NOT NULL,
-  `is_correct` int(11) NOT NULL,
+  `option_id` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_correct` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_answers`
+--
+
+INSERT INTO `user_answers` (`id`, `user_id`, `question_id`, `option_id`, `is_correct`, `created_at`, `updated_at`) VALUES
+(1, 7, 1, 'b', 1, '2022-09-22 14:05:36', '2022-09-22 14:05:36'),
+(2, 7, 2, NULL, NULL, '2022-09-22 14:05:36', '2022-09-22 14:05:36'),
+(3, 2, 1, 'b', 1, '2022-09-22 14:05:59', '2022-09-22 14:05:59'),
+(4, 2, 2, 'd', 0, '2022-09-22 14:05:59', '2022-09-22 14:05:59'),
+(5, 3, 1, 'b', 1, '2022-09-22 14:06:37', '2022-09-22 14:06:37'),
+(6, 3, 2, 'c', 1, '2022-09-22 14:06:37', '2022-09-22 14:06:37');
 
 -- --------------------------------------------------------
 
@@ -196,7 +214,7 @@ CREATE TABLE `user_answers` (
 CREATE TABLE `user_test_results` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
-  `department_id` int(11) NOT NULL,
+  `user_department_id` int(11) NOT NULL,
   `total_questions` int(11) NOT NULL,
   `attempted` int(11) NOT NULL,
   `correct_answer` int(11) NOT NULL,
@@ -205,6 +223,15 @@ CREATE TABLE `user_test_results` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_test_results`
+--
+
+INSERT INTO `user_test_results` (`id`, `user_id`, `user_department_id`, `total_questions`, `attempted`, `correct_answer`, `wrong_answer`, `total_score`, `created_at`, `updated_at`) VALUES
+(1, 7, 2, 2, 1, 1, 0, 0.25, '2022-09-22 14:05:36', '2022-09-22 14:05:36'),
+(2, 2, 1, 2, 2, 1, 1, 0.20, '2022-09-22 14:05:59', '2022-09-22 14:05:59'),
+(3, 3, 1, 2, 2, 2, 0, 0.50, '2022-09-22 14:06:37', '2022-09-22 14:06:37');
 
 --
 -- Indexes for dumped tables
@@ -306,19 +333,19 @@ ALTER TABLE `test_questions`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user_answers`
 --
 ALTER TABLE `user_answers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user_test_results`
 --
 ALTER TABLE `user_test_results`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

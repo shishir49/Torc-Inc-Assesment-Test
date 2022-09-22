@@ -33,15 +33,34 @@
         <div class="test">
             <h5>Answer the following Questions :</h5>
 
-            @foreach($questionList as $questions)
-               ( {{$questions->question_number}} ) {{$questions->question_title}} <br>
-               @foreach($questions->options as $optionList)
-               <label data-id="{{$optionList->id}}" class="get_user_option">
-                <input id="" type="radio" class="answer_option" value="{{$optionList->correct_option}}" name="{{$optionList->question_id}}" /><span class="option_content">{{$optionList->option_name}}</span> {{$optionList->option_title}}</label>
-                  <!-- ( {{$optionList->option_name}} ) {{ $optionList->option_title }} <br> -->
-               @endforeach
-               <br>
-            @endforeach
+            <form action="{{url('submit-test')}}" method="post">
+                @foreach($questionList as $questions)
+                ( {{$questions->question_number}} ) {{$questions->question_title}} <br>
+
+                @if($questions->type == "radio")
+                    @foreach($questions->options as $optionList)
+                        <label data-id="{{$optionList->id}}" class="get_user_option">
+                        <input id="" type="radio" class="answer_option" value="{{$optionList->correct_option}}" name="{{$optionList->question_id}}" /><span class="option_content">{{$optionList->option_name}}</span> {{$optionList->option_title}}</label>
+                        <!-- ( {{$optionList->option_name}} ) {{ $optionList->option_title }} <br> -->
+                    @endforeach
+                @elseif($questions->type == "check")
+                    @foreach($questions->options as $optionList)
+                        <label data-id="{{$optionList->id}}" class="get_user_option">
+                        <input id="" type="checkbox" class="answer_option" value="{{$optionList->correct_option}}" name="{{$optionList->question_id}}" /><span class="option_content">{{$optionList->option_name}}</span> {{$optionList->option_title}}</label>
+                        <!-- ( {{$optionList->option_name}} ) {{ $optionList->option_title }} <br> -->
+                    @endforeach
+                    @elseif($questions->type == "check")
+                    @foreach($questions->options as $optionList)
+                        <label data-id="{{$optionList->id}}" class="get_user_option option_checkbox">
+                        <input id="" type="checkbox" class="answer_option" value="{{$optionList->correct_option}}" name="{{$optionList->question_id}}" /><span class="option_content">{{$optionList->option_name}}</span> {{$optionList->option_title}}</label>
+                        <!-- ( {{$optionList->option_name}} ) {{ $optionList->option_title }} <br> -->
+                    @endforeach
+                @endif 
+                <br>
+                @endforeach
+
+                <button type="submit">Submit</button>
+            </form>
         </div>
     </body>
 </html>

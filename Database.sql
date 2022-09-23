@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 22, 2022 at 10:07 PM
+-- Generation Time: Sep 23, 2022 at 02:30 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -118,10 +118,12 @@ INSERT INTO `question_options` (`id`, `question_id`, `option_name`, `option_titl
 (2, 1, 'b', '25', NULL, NULL),
 (3, 1, 'c', '28', NULL, NULL),
 (4, 1, 'd', '30', NULL, NULL),
-(5, 2, 'a', '14', NULL, NULL),
-(6, 2, 'b', '16', NULL, NULL),
-(7, 2, 'c', '15', NULL, NULL),
-(8, 2, 'd', '4', NULL, NULL);
+(5, 2, 'a', '15', NULL, NULL),
+(6, 2, 'b', '15', NULL, NULL),
+(7, 2, 'c', '16', NULL, NULL),
+(8, 2, 'd', '4', NULL, NULL),
+(13, 4, 'a', 'true', NULL, NULL),
+(14, 4, 'b', 'false', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -145,7 +147,8 @@ CREATE TABLE `test_questions` (
 
 INSERT INTO `test_questions` (`id`, `question_number`, `question_title`, `correct_option`, `type`, `created_at`, `updated_at`) VALUES
 (1, 1, 'What 20 addition 5 ? ', 'b', 'radio', NULL, NULL),
-(2, 2, 'What 20 subtract 5 ? ', 'c', 'check', NULL, NULL);
+(2, 2, 'What 20 subtract 5 ? ', '{\"0\":\"a\",\"1\":\"b\"}', 'check', NULL, NULL),
+(4, 4, '20 divide 5 is 4', 'a', 'boolean', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -175,7 +178,9 @@ INSERT INTO `users` (`id`, `name`, `department_id`, `email`, `email_verified_at`
 (4, 'azim2', 1, 'userd@gmail.com', NULL, '$2y$10$7JG/Xe3uX0MMCqiVWN1O9OQvUayCNLdZmz89ClbtXQ7/YHEy1fosq', NULL, '2022-09-22 13:15:41', '2022-09-22 13:15:41'),
 (5, 'azim3', 2, 'usere@gmail.com', NULL, '$2y$10$cFxUDFITvJnGzM3cvEIkK.A.DC7d23rbxxdQWbBHXaM5VSNCuCp56', NULL, '2022-09-22 13:15:55', '2022-09-22 13:15:55'),
 (6, 'azim4', 2, 'userf@gmail.com', NULL, '$2y$10$AYmfuwqIC/6Ei1rof701uu7taKHGePOWbEwJZP7smX9La4CV2Ogga', NULL, '2022-09-22 13:16:08', '2022-09-22 13:16:08'),
-(7, 'azim5', 2, 'userg@gmail.com', NULL, '$2y$10$cpxerqNBxdjGryorSbaiyetRRqltbER7xfgH4cuyprGzRDVqH6CvS', NULL, '2022-09-22 13:16:16', '2022-09-22 13:16:16');
+(7, 'azim5', 2, 'userg@gmail.com', NULL, '$2y$10$cpxerqNBxdjGryorSbaiyetRRqltbER7xfgH4cuyprGzRDVqH6CvS', NULL, '2022-09-22 13:16:16', '2022-09-22 13:16:16'),
+(8, 'user10', 2, 'user10@gmail.com', NULL, '$2y$10$7VP.KdASrrf5i.i9QWHODepNAcAYvkHqo/rtEO./jsLOo91jq07W2', NULL, '2022-09-22 17:37:29', '2022-09-22 17:37:29'),
+(9, 'Azim', 2, 'user11@gmail.com', NULL, '$2y$10$rijD2BvdjW1W5NLxBDmHsODoeSTDey/bLtA4CxaPNqR8hfQki3B5q', NULL, '2022-09-22 17:56:42', '2022-09-22 17:56:42');
 
 -- --------------------------------------------------------
 
@@ -198,12 +203,24 @@ CREATE TABLE `user_answers` (
 --
 
 INSERT INTO `user_answers` (`id`, `user_id`, `question_id`, `option_id`, `is_correct`, `created_at`, `updated_at`) VALUES
-(1, 7, 1, 'b', 1, '2022-09-22 14:05:36', '2022-09-22 14:05:36'),
-(2, 7, 2, NULL, NULL, '2022-09-22 14:05:36', '2022-09-22 14:05:36'),
-(3, 2, 1, 'b', 1, '2022-09-22 14:05:59', '2022-09-22 14:05:59'),
-(4, 2, 2, 'd', 0, '2022-09-22 14:05:59', '2022-09-22 14:05:59'),
-(5, 3, 1, 'b', 1, '2022-09-22 14:06:37', '2022-09-22 14:06:37'),
-(6, 3, 2, 'c', 1, '2022-09-22 14:06:37', '2022-09-22 14:06:37');
+(1, 9, 1, '\"b\"', 1, '2022-09-22 18:27:59', '2022-09-22 18:27:59'),
+(2, 9, 2, '\"a,b\"', 1, '2022-09-22 18:27:59', '2022-09-22 18:27:59'),
+(3, 9, 4, '\"a\"', 1, '2022-09-22 18:27:59', '2022-09-22 18:27:59'),
+(4, 2, 1, '\"b\"', 1, '2022-09-22 18:28:22', '2022-09-22 18:28:22'),
+(5, 2, 2, '\"b\"', 0, '2022-09-22 18:28:22', '2022-09-22 18:28:22'),
+(6, 2, 4, '\"b\"', 0, '2022-09-22 18:28:22', '2022-09-22 18:28:22'),
+(7, 3, 1, '\"b\"', 1, '2022-09-22 18:28:46', '2022-09-22 18:28:46'),
+(8, 3, 2, '\"a,b\"', 1, '2022-09-22 18:28:46', '2022-09-22 18:28:46'),
+(9, 3, 4, 'null', NULL, '2022-09-22 18:28:46', '2022-09-22 18:28:46'),
+(10, 5, 1, '\"b\"', 1, '2022-09-22 18:29:09', '2022-09-22 18:29:09'),
+(11, 5, 2, '\"a\"', 0, '2022-09-22 18:29:09', '2022-09-22 18:29:09'),
+(12, 5, 4, '\"a\"', 1, '2022-09-22 18:29:09', '2022-09-22 18:29:09'),
+(13, 6, 1, '\"c\"', 0, '2022-09-22 18:29:35', '2022-09-22 18:29:35'),
+(14, 6, 2, '\"c\"', 0, '2022-09-22 18:29:35', '2022-09-22 18:29:35'),
+(15, 6, 4, '\"b\"', 0, '2022-09-22 18:29:35', '2022-09-22 18:29:35'),
+(16, 7, 1, '\"b\"', 1, '2022-09-22 18:30:18', '2022-09-22 18:30:18'),
+(17, 7, 2, '\"a,b\"', 1, '2022-09-22 18:30:18', '2022-09-22 18:30:18'),
+(18, 7, 4, '\"b\"', 0, '2022-09-22 18:30:18', '2022-09-22 18:30:18');
 
 -- --------------------------------------------------------
 
@@ -229,9 +246,12 @@ CREATE TABLE `user_test_results` (
 --
 
 INSERT INTO `user_test_results` (`id`, `user_id`, `user_department_id`, `total_questions`, `attempted`, `correct_answer`, `wrong_answer`, `total_score`, `created_at`, `updated_at`) VALUES
-(1, 7, 2, 2, 1, 1, 0, 0.25, '2022-09-22 14:05:36', '2022-09-22 14:05:36'),
-(2, 2, 1, 2, 2, 1, 1, 0.20, '2022-09-22 14:05:59', '2022-09-22 14:05:59'),
-(3, 3, 1, 2, 2, 2, 0, 0.50, '2022-09-22 14:06:37', '2022-09-22 14:06:37');
+(1, 9, 2, 3, 3, 3, 0, 0.75, '2022-09-22 18:27:59', '2022-09-22 18:27:59'),
+(2, 2, 1, 3, 3, 1, 2, 0.15, '2022-09-22 18:28:22', '2022-09-22 18:28:22'),
+(3, 3, 1, 3, 2, 2, 0, 0.50, '2022-09-22 18:28:46', '2022-09-22 18:28:46'),
+(4, 5, 2, 3, 3, 2, 1, 0.45, '2022-09-22 18:29:09', '2022-09-22 18:29:09'),
+(5, 6, 2, 3, 3, 0, 3, -0.15, '2022-09-22 18:29:35', '2022-09-22 18:29:35'),
+(6, 7, 2, 3, 3, 2, 1, 0.45, '2022-09-22 18:30:18', '2022-09-22 18:30:18');
 
 --
 -- Indexes for dumped tables
@@ -321,31 +341,31 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `question_options`
 --
 ALTER TABLE `question_options`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `test_questions`
 --
 ALTER TABLE `test_questions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `user_answers`
 --
 ALTER TABLE `user_answers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `user_test_results`
 --
 ALTER TABLE `user_test_results`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -14,10 +14,30 @@
             body {
                 font-family: 'Nunito', sans-serif;
             }
+
+            .container {
+               display:grid;
+               grid-template-columns: "1fr 1fr";
+               grid-template-rows: "1fr 0.2fr";
+               grid-template-areas: 
+               "login registration"
+               "message message";
+            }
+
+            .login {
+             grid-area:login;
+            }
+
+            .registration {
+                grid-area:registration;
+            }
+
+            .message {
+                grid-area:message;
+            }
         </style>
     </head>
     <body>
-       <h4>Please Login in order to access your dashboard</h4>
        @yield('content')
     </body>
 </html>

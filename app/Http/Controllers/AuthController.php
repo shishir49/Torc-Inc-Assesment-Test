@@ -15,8 +15,25 @@ class AuthController extends Controller
        return view('login');
     }
 
+    public function registrationPage() 
+    {
+        return view('registration');
+
+    }
+
     public function registration(Request $request) 
     {
+        $validator = Validator::make($request->all(), [
+            'email'           => 'required|string|email|max:255',
+            'password'        => 'required|string|min:8',
+            'name'            => 'required|string',
+            'department_id'   => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/')->with(['msg' => $validator->errors()]);
+        }
+
         $user                  = new User();
         $user->name            = $request->name;
         $user->email           = $request->email;
@@ -24,6 +41,7 @@ class AuthController extends Controller
         $user->password        = Hash::make($request->password);
         $user->save();
 
+        return redirect('/')->with(['success_msg' => "Registration successful !"]);
     }
 
     public function login(Request $request)
@@ -34,11 +52,11 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect('login')->with(['msg' => 'login failed !']);
+            return redirect('/')->with(['msg' => 'login failed !']);
         }
 
         if (!Auth::attempt($request->only('email', 'password'))) {
-            return redirect('login')->with(['msg' => 'Invalid Credentials!']);
+            return redirect('/')->with(['msg' => 'Invalid Credentials!']);
         }
 
         $user = User::where('email', $request['email'])->firstOrFail();

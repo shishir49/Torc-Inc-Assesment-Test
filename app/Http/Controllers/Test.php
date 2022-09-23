@@ -31,7 +31,7 @@ class Test extends Controller
                 UserAnswer::create([
                     "user_id"        => Auth::id(),
                     "question_id"    => $request->question_id[$val],
-                    "option_id"      => $request->option_id[$val],
+                    "option_id"      => json_encode($request->option_id[$val]),
                     "is_correct"     => $request->is_correct[$val],
                 ]); 
             }
@@ -40,14 +40,14 @@ class Test extends Controller
             $attempted       = $userTestDetails->whereNotNull('is_correct')->count();
             $correctAnswer   = $userTestDetails->where('is_correct', 1)->count();
             $wrongAnswer     = $attempted - $correctAnswer;
-            $left            = 2 - $attempted;
+            $left            = 3 - $attempted;
 
             $totalScore = ($correctAnswer*(0.25) - $wrongAnswer*(.05));
 
             UserTestResult::create([
                 "user_id"               => Auth::id(),
                 "user_department_id"    => $request->department_id,
-                "total_questions"       => 2,
+                "total_questions"       => 3,
                 "attempted"             => $attempted,
                 "correct_answer"        => $correctAnswer,
                 "wrong_answer"          => $wrongAnswer,

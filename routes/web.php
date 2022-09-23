@@ -18,6 +18,7 @@ use App\Http\Controllers\Test;
 
 Route::get('/', [AuthController::class, 'loginPage']);
 Route::post('login-action', [AuthController::class, 'login']);
+Route::post('registration', [AuthController::class, 'registration']);
 
 Route::middleware('auth:sanctum')->group( function () {
     Route::get('dashboard', [AuthController::class, 'dashboard']);
